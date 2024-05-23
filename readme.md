@@ -17,6 +17,11 @@ To run the project itself without docker, an extensive set of tools is required 
 
 The scraping system does not work on Windows due to dependencies. The backend requires Java to be installed and the frontend requires Node v20 and React compatible with this version. 
 
+## Design
+The system has been split into several separate services and synchronizes two separate databases. The individual system models are described in more detail in the text of the thesis.
+
+![Main page](doc/obrazky-figures/design/high_level_component_diagram.png)
+
 
 ## Result
 
