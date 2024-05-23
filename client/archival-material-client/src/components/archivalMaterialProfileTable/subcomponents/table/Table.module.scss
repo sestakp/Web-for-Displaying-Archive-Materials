@@ -1,0 +1,22 @@
+@import "../../../../styles/colorPalette.scss";
+
+
+.tableWrapper{
+    border: 1px solid $gray;
+}
+
+td{
+    padding-top: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.p-column-title p {
+    margin: 0;
+}
+
+.datatableRow{
+    cursor: pointer;
+    border-bottom: 1px solid $gray;
+}

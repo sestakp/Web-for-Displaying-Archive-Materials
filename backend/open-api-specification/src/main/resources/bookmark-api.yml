@@ -1,0 +1,135 @@
+openapi: 3.0.3
+info:
+  title: BOOKMARK REST API
+  description: BOOKMARK REST API
+  version: 0.0.1
+servers:
+  - url: 'https'
+
+paths:
+  /bookmarks:
+    # Upsert
+    put:
+      tags:
+        - bookmark-controller
+      summary: Upsert bookmark
+      operationId: upsert
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookmarkRequestDto'
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookmarkDetailDto'
+
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+  /bookmarks/{id}:
+    delete:
+      tags:
+        - bookmark-controller
+      summary: Delete bookmark
+      operationId: deleteBookmark
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
+            format: int64
+            description: ID of bookmark
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+
+  /bookmarks/{archivalRecordId}:
+    get:
+      tags:
+        - bookmark-controller
+      summary: Get bookmarks for specific archival record
+      operationId: getBookmarksForArchivalRecord
+      parameters:
+        - in: path
+          required: true
+          name: archivalRecordId
+          schema:
+            type: integer
+            format: int64
+            description: ID of archivalRecord
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookmarkDetailDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+
+
+components:
+  schemas:
+
+    BookmarkRequestDto:
+      properties:
+        scanUrl:
+          type: string
+        text:
+          type: string
+        archivalRecordId:
+          type: integer
+          format: int64
+        scanNumber:
+          type: integer
+
+    BookmarkDetailDto:
+      properties:
+        id:
+          type: integer
+          format: int64
+        scanUrl:
+          type: string
+        text:
+          type: string
+        archivalRecordId:
+          type: integer
+          format: int64
+        user:
+          $ref: 'user-api.yml#/components/schemas/UserDetailDto'
+        scanNumber:
+          type: integer
+        lastUpdated:
+          type: string
+          format: date-time

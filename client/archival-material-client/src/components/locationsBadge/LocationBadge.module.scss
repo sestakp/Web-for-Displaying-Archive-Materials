@@ -1,0 +1,22 @@
+/* Change the color of the scrollbar handle */
+.customScrollpanel {
+    &::-webkit-scrollbar-thumb {
+      background-color: #007bff;
+      visibility: visible;
+      opacity: 1; 
+      display: block;
+    }
+  
+    /* Change the color of the scrollbar track */
+    &::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+    }
+  
+    /* Adjust scrollbar width for Firefox */
+    scrollbar-width: thin;
+  
+    /* Adjust scrollbar width for WebKit browsers (Chrome, Safari) */
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+  }

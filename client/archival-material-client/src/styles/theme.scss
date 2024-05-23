@@ -1,0 +1,32 @@
+// custom-theme.scss
+
+@import "./colorPalette.scss";
+
+// Import PrimeReact styles
+@import "~primereact/resources/themes/lara-light-blue/theme.css";
+
+// Override PrimeReact variables
+//$primaryColor: $primary-color;
+//$accentColor: $secondary-color;
+
+// Add additional custom styles here
+
+
+.p-scrollpanel-bar{
+    background-color: $primary-color;
+    color: $primary-color;
+}
+
+
+.p-button{
+    background-color: $primary-color;
+    color: $secondary-color;
+}
+
+.p-card-content{
+    padding: 5px 0 5px 0
+}
+
+.p-accordion-content{
+    padding: 0 !important;
+}

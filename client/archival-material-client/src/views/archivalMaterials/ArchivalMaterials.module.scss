@@ -1,0 +1,25 @@
+@import "../../styles/colorPalette.scss";
+
+
+
+.filterWrapper{
+    display: flex;
+    margin-top: 10px;
+}
+
+.inputWrapper{
+    margin-right: 10px;
+}
+
+.breadcrumb{
+    margin-bottom: 10px;
+}
+
+.breadcrumb ol{
+    margin: 0 !important;
+}
+
+.tableWrapper{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}

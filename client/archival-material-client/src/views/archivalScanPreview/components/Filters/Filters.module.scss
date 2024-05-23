@@ -1,0 +1,36 @@
+@import "../../../../styles/colorPalette.scss";
+
+
+
+.filterContainer {
+    background-color: $dark-gray;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 0 10px 0 10px;
+
+    p {
+        color: $secondary-color;
+    }
+}
+
+.resetFiltersWrapper {
+    width: 100%;
+    display: flex;
+    padding: 15px;
+    justify-content: center;
+}
+
+.header {
+    color: $primary-color;
+}
+
+.button {
+    background-color: $primary-color;
+    color: $secondary-color;
+}
+
+.buttonInverse {
+    color: $primary-color;
+    background-color: $secondary-color;
+}
+

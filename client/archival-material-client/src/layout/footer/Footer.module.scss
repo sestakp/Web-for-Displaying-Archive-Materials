@@ -1,0 +1,20 @@
+@import "../../styles/colorPalette.scss";
+
+$footer_height: 100px;
+
+.footer{
+    background-color: $primary-color;
+    color: $secondary-color;
+    padding: 5px;
+}
+
+.logoBanner img {
+    cursor: pointer;
+}
+
+.center {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}

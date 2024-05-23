@@ -1,0 +1,9 @@
+
+
+const GalleryTypes = {
+  SET_CURRENT_IMAGE_INDEX: 'GALLERY_TYPES_SET_CURRENT_IMAGE_INDEX',
+  SET_IMAGES: 'GALLERY_TYPES_SET_IMAGES',
+  MOVE: 'GALLERY_TYPES_MOVE',
+};
+
+export default GalleryTypes;

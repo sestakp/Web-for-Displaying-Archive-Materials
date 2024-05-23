@@ -1,0 +1,31 @@
+@import "../../../../styles/colorPalette.scss";
+
+.header{
+    width: 100%;
+    background-color: $gray;
+    padding: 10px 30px 10px 30px;
+    border-radius: 5px 5px 0 0;
+    font-weight: bold;
+    font-size: larger;
+    color: $primary-color;
+    display: flex;
+    justify-content: space-between;
+}
+
+th{
+    padding-top: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.icon{
+    height: 22px;
+    padding-right: 5px;
+}
+
+
+.headerTextWrapper{
+    display: flex;
+    align-items: center;
+}

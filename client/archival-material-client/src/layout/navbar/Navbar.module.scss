@@ -1,0 +1,62 @@
+
+@import "../../styles/colorPalette.scss";
+@import "../../styles/breakpoints.scss";
+
+.nav {
+    background-color: $primary-color;
+    color: $secondary-color;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    height: 4em;
+
+}
+
+.header {
+    font-size: 2em;
+    margin: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width: $lg) {
+        justify-content: center;
+    }
+}
+
+.button {
+    background-color: $secondary-color;
+    color: $primary-color;
+    padding: 8px;
+
+}
+
+.buttonWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+
+}
+
+.divider {
+    padding-top: 0;
+    @media screen and (max-width: $md) {
+        display: none;
+    }
+}
+
+.center {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-end;
+    @media screen and (max-width: $md) {
+        justify-content: center;
+    }
+}

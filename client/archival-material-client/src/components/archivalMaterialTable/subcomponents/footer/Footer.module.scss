@@ -1,0 +1,66 @@
+@import "../../../../styles/colorPalette.scss";
+
+.footer{
+    width: 100%;
+    background-color: $gray;
+    padding: 10px 0 10px 30px;
+    border-radius: 0 0 5px 5px;
+    font-weight: bold;
+    font-size: larger;
+    color: $primary-color;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.disable {
+    color: $dark-gray;
+    cursor: auto !important;
+}
+
+.section1, .section1 i{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.section1 i{
+    font-size: x-large;
+    cursor: pointer;
+}
+
+.section2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section3{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    p{
+        margin-right: 10px;
+    }
+}
+
+.loadNextButton{
+    display: flex;
+
+    color: $secondary-color; 
+    background-color: $primary-color; 
+    border: none;
+}
+
+.selectedBadge {
+    color: $secondary-color;
+    background-color: $primary-color;
+}
+
+.inputNumber{
+    width: 120px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+

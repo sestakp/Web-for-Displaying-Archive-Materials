@@ -1,0 +1,24 @@
+@import "../../styles/colorPalette.scss";
+
+.badge {
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border: 1px solid $primary-color; /* Set blue border */
+    background-color: $secondary-color; /* Set background color to white */
+    color: $primary-color; /* Set text color to blue */
+    border-radius: 50%;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .badgeValue {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    //padding: 4px 8px; /* Adjust padding as needed */
+    font-size: 1rem; /* Adjust font size as needed */
+    user-select: none;
+  }

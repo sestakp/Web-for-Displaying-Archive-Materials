@@ -1,0 +1,28 @@
+
+@import "../../styles/colorPalette.scss";
+
+.heart{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: $primary-color;
+}
+
+.heart i {
+    cursor: pointer;
+    font-size: 40px;
+}
+
+
+
+
+
+
+
+
+
+.button {
+    width: 100%;
+    background-color: $primary-color;
+    color: $secondary-color;
+}

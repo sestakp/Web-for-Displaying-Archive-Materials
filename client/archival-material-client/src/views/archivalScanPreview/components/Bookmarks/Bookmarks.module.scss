@@ -1,0 +1,24 @@
+@import "../../../../styles/colorPalette.scss";
+
+
+
+
+.bookmarkWrapper{
+    background-color: $dark-gray;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    min-width: 47px;
+    min-height: 50px;
+}
+
+.bookmark{
+    height: 30px;
+    width: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: $primary-color;
+    color: $secondary-color;
+}

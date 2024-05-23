@@ -1,0 +1,304 @@
+openapi: 3.0.0
+info:
+  title: USER REST API
+  description: REST API for web archive materials czech republic
+  version: 0.0.1
+
+paths:
+
+  /users/{email}:
+    get:
+      tags:
+        - user-controller
+      summary: Get user by email
+      operationId: getUserByEmail
+      parameters:
+        - in: path
+          required: true
+          name: email
+          schema:
+            type: string
+            description: Email of user
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetailDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+  /users:
+    put:
+      tags:
+        - user-controller
+      summary: Update user profile
+      operationId: updateUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateDto'
+      responses:
+        200:
+          description: UPDATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetailDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        500:
+          description: Internal server error
+
+  /users/login:
+    post:
+      tags:
+        - user-controller
+      summary: Login user
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequestDto'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponseDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        500:
+          description: Internal server error
+
+  /users/register:
+    post:
+      tags:
+        - user-controller
+      summary: Register user
+      operationId: registerUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequestDto'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResponseDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        500:
+          description: Internal server error
+
+  /users/verification/{verifyHash}:
+    get:
+      tags:
+        - user-controller
+      summary: Verify user
+      operationId: verifyUser
+      parameters:
+        - in: path
+          required: true
+          name: verifyHash
+          schema:
+            type: string
+      responses:
+        200:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        500:
+          description: Internal server error
+
+  /users/password-reset/{email}:
+    get:
+      tags:
+        - user-controller
+      summary: Send email to user to reset password
+      operationId: passwordResetRequest
+      parameters:
+        - in: path
+          required: true
+          name: email
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        500:
+          description: Internal server error
+  /users/password-reset:
+    put:
+      tags:
+        - user-controller
+      summary: Reset password
+      operationId: passwordReset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetDto'
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        500:
+          description: Internal server error
+  /users/favourite/{id}:
+    post:
+      tags:
+        - user-controller
+      summary: Get user by ID
+      operationId: addToFavourites
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
+            format: int64
+            description: ID of user
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+    delete:
+      tags:
+        - user-controller
+      summary: Get user by ID
+      operationId: removeFromFavourites
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
+            format: int64
+            description: ID of user
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+
+components:
+  schemas:
+
+    AuthRequestDto:
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+
+    UserUpdateDto:
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+
+    UserDetailDto:
+      properties:
+        id:
+          type: integer
+          format: int64
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        isVerified:
+          type: boolean
+
+    AuthResponseDto:
+      properties:
+        id:
+          type: integer
+          format: int64
+        email:
+          type: string
+        name:
+          type: string
+        accessToken:
+          type: string
+
+    RegisterRequestDto:
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        password:
+          type: string
+
+    RegisterResponseDto:
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+
+    PasswordResetDto:
+      properties:
+        hash:
+          type: string
+        password:
+          type: string

@@ -1,0 +1,1 @@
+nohup docker exec -d 1d30d49b584f scrapy crawl auto_downloader > output.log 2>&1 &

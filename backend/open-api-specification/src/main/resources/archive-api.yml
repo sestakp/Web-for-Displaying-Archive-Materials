@@ -1,0 +1,293 @@
+openapi: 3.0.0
+info:
+  title: ARCHIVES REST API
+  description: REST API for web archive materials czech republic
+  version: 0.0.1
+
+paths:
+
+  /archives:
+    # Vytvorenie noveho archivu
+    post:
+      tags:
+        - archive-controller
+      summary: Create new archive
+      operationId: createArchive
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveCreateDto'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchiveDetailDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        500:
+          description: Internal server error
+    # Ziskanie vsetkych archivov
+    get:
+      tags:
+        - archive-controller
+      summary: Get all archives
+      operationId: getAllArchives
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Filter by archive name
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArchiveDetailDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        500:
+          description: Internal server error
+
+  # Vypisanie konkretneho archivu
+  /archives/{id}:
+    get:
+      tags:
+        - archive-controller
+      summary: Get archive by ID
+      operationId: getArchive
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
+            format: int64
+            description: ID of archive to be retrieved
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchiveDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+    # Aktualizovanie archivu podla ID
+    patch:
+      tags:
+        - archive-controller
+      summary: Update archive
+      operationId: updateArchive
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
+            format: int64
+          description: ID of archive to be updated
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveUpdateDto'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchiveDetailDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+    # Vymazanie archivu podla ID
+    delete:
+      tags:
+        - archive-controller
+      summary: Delete archive
+      operationId: deleteArchive
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
+            format: int64
+            description: ID of archive to be deleted
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+  /archives/{id}/detail:
+    get:
+      tags:
+        - archive-controller
+      summary: Get archive Detail by ID archive
+      operationId: getArchiveDetail
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
+            format: int64
+            description: ID of archive to be retrieved
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchiveDetailDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server erro
+  # Vypisanie konkretneho archivu
+  /archives/getByAbbreviation/{name}:
+    get:
+      tags:
+        - archive-controller
+      summary: Get archive by ID
+      operationId: getArchiveByAbbreviation
+      parameters:
+        - in: path
+          required: true
+          name: name
+          schema:
+            type: string
+            description: Name of archive to be retrieved
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchiveDetailDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+components:
+  schemas:
+
+    ArchiveDetailDto:
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        state:
+          $ref: '#/components/schemas/ArchiveStateEnum'
+        address:
+          type: string
+        type:
+          $ref: '#/components/schemas/ArchiveTypeEnum'
+        abbreviation:
+          type: string
+
+    ArchiveDto:
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        state:
+          $ref: '#/components/schemas/ArchiveStateEnum'
+        address:
+          type: string
+        type:
+          $ref: '#/components/schemas/ArchiveTypeEnum'
+        abbreviation:
+          type: string
+
+    ArchiveCreateDto:
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        state:
+          $ref: '#/components/schemas/ArchiveStateEnum'
+        address:
+          type: string
+        type:
+          $ref: '#/components/schemas/ArchiveTypeEnum'
+
+    ArchiveUpdateDto:
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        state:
+          $ref: '#/components/schemas/ArchiveStateEnum'
+        address:
+          type: string
+        type:
+          $ref: '#/components/schemas/ArchiveTypeEnum'
+
+    ArchiveStateEnum:
+      type: string
+      enum:
+        - CZECH_REPUBLIC
+        - SLOVAKIA
+        - AUSTRIA
+
+    ArchiveTypeEnum:
+      type: string
+      enum:
+        - SOA
+        - ZA
+        - MZA
+        - NARODNI

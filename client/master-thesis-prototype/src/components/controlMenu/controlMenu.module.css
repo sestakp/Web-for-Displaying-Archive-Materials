@@ -1,0 +1,13 @@
+
+@import "@styles/button.module.css";
+
+
+.wrapper {
+    /*height: "50px", */
+    background-color: rgb(50,50,50);
+    z-index: 999;
+    position: relative;
+    /*top: "0",
+      left: "0",*/
+    width: 100%;
+}

@@ -1,0 +1,17 @@
+@import "../../styles/colorPalette.scss";
+
+
+.imgNumberOfScansOverlay{
+    background-color: $transparent-primary;
+    color: $secondary-color;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+}
+
+.tabView div div ul{
+    margin: 0;
+}

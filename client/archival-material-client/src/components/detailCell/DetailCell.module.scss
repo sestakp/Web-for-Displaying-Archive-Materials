@@ -1,0 +1,10 @@
+@import "../../styles/colorPalette.scss";
+
+.infoCell{
+    border-bottom: 1px solid $primary-color;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    height: 100%;
+    padding: 10px;
+}

@@ -1,0 +1,12 @@
+@import '@styles/colorPalette.module.css';
+@import '@styles/button.module.css';
+
+.wrapper {
+    height: 60px;
+    z-index: 999;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    justify-content: center;
+}

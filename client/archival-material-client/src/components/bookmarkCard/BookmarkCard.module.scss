@@ -1,0 +1,32 @@
+@import "../../styles/colorPalette.scss";
+
+
+.icon{
+    color: $primary-color;
+    cursor: pointer;
+}
+
+
+.pencil{
+    padding-right: 5px;
+    color: $primary-color;
+    cursor: pointer;
+}
+
+.trash{
+    color: $primary-color;
+    cursor: pointer;
+}
+
+.save {
+    padding-left: 5px;
+    padding-right: 5px;
+    color: $primary-color;
+    cursor: pointer;
+}
+
+.clock{
+    
+    padding-left: 5px;
+    color: $primary-color;
+}

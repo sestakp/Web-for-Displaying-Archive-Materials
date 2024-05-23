@@ -1,0 +1,9 @@
+pandas
+matplotlib
+numpy
+IPython
+seaborn
+lxml
+matplotlib_venn
+venny4py
+tqdm

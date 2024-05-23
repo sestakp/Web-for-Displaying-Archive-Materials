@@ -1,0 +1,21 @@
+
+@import "../../styles/colorPalette.scss";
+
+
+.wrapper {
+    padding: 10px;
+}
+
+.valueWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.value {
+    font-size: 1.4em;
+    margin-right: 5px;
+}
+
+.label{
+    color: $primary-color
+}

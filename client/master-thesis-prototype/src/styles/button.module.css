@@ -1,0 +1,10 @@
+
+.ctrBtn{
+    margin: 10px !important;
+    font-size: 2px !important;
+  }
+  
+  
+.ctrBtn * {
+    font-size: 16px !important;
+  }

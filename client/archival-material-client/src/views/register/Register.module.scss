@@ -1,0 +1,46 @@
+
+@import "../../styles/colorPalette.scss";
+
+.outerContainer{
+    height: 100%;
+    
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    padding: 40px;
+}
+
+
+.inputWrapper{
+    margin-top: 30px;
+
+    
+}
+
+.input{
+    width: 100%;
+    display: grid;
+}
+
+.forgotPassword {
+    text-align: right;
+    color: $primary-color;
+}
+
+.submitButtonWrapper{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.submitButton {
+    color: $secondary-color; 
+    background-color: $primary-color; 
+    border: none;
+
+}

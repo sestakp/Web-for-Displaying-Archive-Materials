@@ -1,0 +1,32 @@
+@import "../../../../styles/colorPalette.scss";
+
+
+
+.addBookmarkContainer{
+    
+    background-color: $dark-gray;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 5px 10px 10px 10px;
+
+}
+
+.header{
+    color: $primary-color;
+}
+
+
+.input {
+    width: 70%;
+}
+
+.button {
+    margin-left: 5px;
+    background-color: $primary-color;
+    color: $secondary-color;
+}
+
+.addBookmarkIcon{
+    width: 20px;
+    filter: invert(100%);
+}

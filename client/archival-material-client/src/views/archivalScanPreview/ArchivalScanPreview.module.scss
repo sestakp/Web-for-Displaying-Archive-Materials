@@ -1,0 +1,26 @@
+@import "../../styles/colorPalette.scss";
+
+.main{
+    background-color: $darker-gray;
+    color: $primary-color;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.panel{
+    background-color: $darker-gray;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: none !important;
+}
+
+
+
+
+.splitter {
+    height: 90vh;
+    border: none;
+    width: 100%;
+}

@@ -1,0 +1,702 @@
+openapi: 3.0.0
+info:
+  title: ARCHIVAL RECORD REST API
+  description: REST API for web archive materials czech republic
+  version: 0.0.1
+
+servers:
+  - url: http://localhost:8080/api
+paths:
+
+  # Vytvorenie noveho archivneho zaznamu
+  /archival-records:
+    # Upsert
+    put:
+      tags:
+        - archival-records-controller
+      summary: Get archivalRecords by query
+      operationId: upsert
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchivalRecordCreateDto'
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchivalRecordDetailDto'
+
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+    # Ziskanie vsetkych archivnych zaznamov
+    # parametry musi byt in path, RequestBody neni ve standardu a napriklad axios neumi poslat pres get, musel by byt post
+    get:
+      tags:
+        - archival-records-controller
+      summary: Get all archivalRecords
+      operationId: getAllArchivalRecords
+      parameters:
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: typeOfRecord
+          schema:
+            $ref: '#/components/schemas/ArchivalRecordTypeEnum'
+        - in: query
+          name: q
+          schema:
+            type: string
+        - in: query
+          name: archiveAbbr
+          schema:
+            type: string
+        - in: query
+          name: yearFrom
+          schema:
+            type: integer
+        - in: query
+          name: yearTo
+          schema:
+            type: integer
+        - in: query
+          name: country
+          schema:
+            type: string
+        - in: query
+          name: region
+          schema:
+            type: string
+        - in: query
+          name: district
+          schema:
+            type: string
+        - in: query
+          name: municipality
+          schema:
+            type: string
+        - in: query
+          name: borough
+          schema:
+            type: string
+        - in: query
+          name: onlyFavourites
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: onlyWithMyNotes
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: onlyWithMyBookmarks
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: onlyDigitalized
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: sortField
+          schema:
+            type: string
+        - in: query
+          name: sortOrder
+          schema:
+            type: integer
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchivalRecordPageDto'
+
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        500:
+          description: Internal server error
+
+  /archival-records/getCountsByMunicipality:
+    get:
+      tags:
+        - archival-records-controller
+      summary: Get all archivalRecords
+      operationId: getCountsByMunicipality
+      parameters:
+        - in: query
+          name: country
+          schema:
+            type: string
+        - in: query
+          name: region
+          schema:
+            type: string
+        - in: query
+          name: district
+          schema:
+            type: string
+        - in: query
+          name: municipality
+          schema:
+            type: string
+        - in: query
+          name: borough
+          schema:
+            type: string
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountsByMunicipalityDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        500:
+          description: Internal server error
+
+  # Vypisanie konkretneho archivneho zaznamu
+  /archival-records/{id}:
+    get:
+      tags:
+        - archival-records-controller
+      summary: Get archivalRecord by ID
+      operationId: getArchivalRecord
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
+            format: int64
+            description: ID of archivalRecord to be retrieved
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchivalRecordDetailDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+    # Vymazanie archivneho zaznamu podla ID
+    delete:
+      tags:
+        - archival-records-controller
+      summary: Delete archivalRecord
+      operationId: deleteArchivalRecord
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
+            format: int64
+            description: ID of archivalRecord to be deleted
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+  /archival-records/{id}/scans:
+    get:
+      tags:
+        - archival-records-controller
+      summary: Get all scans by archivalRecord
+      operationId: getAllScansByArchivalRecord
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
+            format: int64
+            description: ID of archivalRecord
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchivalRecordScansDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+
+components:
+  schemas:
+    CountsByMunicipalityDto:
+      properties:
+        matriky:
+          type: integer
+          format: int64
+          default: 0
+        scitaciOperatory:
+          type: integer
+          format: int64
+          default: 0
+        pozemkoveKnihy:
+          type: integer
+          format: int64
+          default: 0
+        lanoveRejstriky:
+          type: integer
+          format: int64
+          default: 0
+        urbare:
+          type: integer
+          format: int64
+          default: 0
+        retrifikacniAkta:
+          type: integer
+          format: int64
+          default: 0
+
+
+    ArchivalRecordListDto:
+      properties:
+        id:
+          type: integer
+          format: int64
+        content:
+          type: string
+        description:
+          type: string
+        archive:
+          type: string
+        landRegistryNrs:
+          type: string
+        fund:
+          $ref: '#/components/schemas/FundDto'
+        signature:
+          type: string
+        nad:
+          type: integer
+        inventoryNumber:
+          type: string
+        otherNote:
+          type: string
+        numberOfScans:
+          type: integer
+        yearTaken:
+          type: integer
+        year:
+          $ref: '#/components/schemas/TimeRangeDto'
+        yearBorn:
+          $ref: '#/components/schemas/TimeRangeDto'
+        yearBornIndex:
+          $ref: '#/components/schemas/TimeRangeDto'
+        yearMarried:
+          $ref: '#/components/schemas/TimeRangeDto'
+        yearMarriedIndex:
+          $ref: '#/components/schemas/TimeRangeDto'
+        yearDeceased:
+          $ref: '#/components/schemas/TimeRangeDto'
+        yearDeceasedIndex:
+          $ref: '#/components/schemas/TimeRangeDto'
+        originator:
+          $ref: '#/components/schemas/OriginatorDto'
+        locations:
+          type: array
+          items:
+            $ref: 'locations.yml#/components/schemas/LocationListDto'
+
+
+
+    OriginatorDto:
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        note:
+          type: string
+
+    TimeRangeDto:
+      properties:
+        from:
+          type: integer
+        to:
+          type: integer
+
+
+    ArchivalRecordDetailDto:
+      properties:
+        id:
+          type: integer
+          format: int64
+        archive:
+          $ref: 'archive-api.yml#/components/schemas/ArchiveDto'
+        fund:
+          $ref: '#/components/schemas/FundDto'
+        signature:
+          type: string
+        recordMethod:
+          type: string
+        indexOnly:
+          type: boolean
+        specificType:
+          type: string
+        judicialDistrict:
+          type: string
+        landRegistryNrs:
+          type: string
+        firstScan:
+          $ref: '#/components/schemas/ScanDto'
+        nad:
+          type: integer
+        content:
+          type: string
+        yearTaken:
+          type: integer
+        originalName:
+          type: string
+        inventoryNumber:
+          type: string
+        languages:
+          type: array
+          items:
+            type: string
+        numberOfScans:
+          type: integer
+        otherNote:
+          type: string
+        description:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        link:
+          type: string
+        isFavourite:
+          type: boolean
+        year:
+          $ref: '#/components/schemas/TimeRangeDto'
+        yearBorn:
+          $ref: '#/components/schemas/TimeRangeDto'
+        yearBornIndex:
+          $ref: '#/components/schemas/TimeRangeDto'
+        yearMarried:
+          $ref: '#/components/schemas/TimeRangeDto'
+        yearMarriedIndex:
+          $ref: '#/components/schemas/TimeRangeDto'
+        yearDeceased:
+          $ref: '#/components/schemas/TimeRangeDto'
+        yearDeceasedIndex:
+          $ref: '#/components/schemas/TimeRangeDto'
+        originator:
+          $ref: '#/components/schemas/OriginatorDto'
+        locations:
+          type: array
+          items:
+            $ref: 'locations.yml#/components/schemas/LocationDto'
+        typeOfRecord:
+          $ref: '#/components/schemas/ArchivalRecordTypeEnum'
+
+    ArchivalRecordPageDto:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchivalRecordListDto'
+        totalPages:
+          type: integer
+        totalElements:
+          type: integer
+          format: int64
+
+    ArchivalRecordCreateDto:
+      properties:
+        typeOfRecord:
+          $ref: '#/components/schemas/ArchivalRecordTypeEnum'
+        archive:
+          type: string
+        fundName:
+          type: string
+        fundCode:
+          type: string
+        signature:
+          type: string
+        nad:
+          type: integer
+        inventoryNumber:
+          type: string
+        languages:
+          type: array
+          items:
+            type: string
+        numberOfScans:
+          type: integer
+        otherNote:
+          type: string
+        link:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: 'locations.yml#/components/schemas/LocationDto'
+        yearFrom:
+          type: integer
+        yearTo:
+          type: integer
+        content:
+          type: string
+        description:
+          type: string
+        scans:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanDto'
+        originatorName:
+          type: string
+        originatorType:
+          type: string
+        originatorNote:
+          type: string
+        yearBornFrom:
+          type: integer
+        yearBornTo:
+          type: integer
+        yearBornIndexFrom:
+          type: integer
+        yearBornIndexTo:
+          type: integer
+        yearMarriedFrom:
+          type: integer
+        yearMarriedTo:
+          type: integer
+        yearMarriedIndexFrom:
+          type: integer
+        yearMarriedIndexTo:
+          type: integer
+        yearDeceasedFrom:
+          type: integer
+        yearDeceasedTo:
+          type: integer
+        yearDeceasedIndexFrom:
+          type: integer
+        yearDeceasedIndexTo:
+          type: integer
+        registerNote:
+          type: string
+        yearTaken:
+          type: integer
+        judicialDistrict:
+          type: string
+        landRegistryNrs:
+          type: string
+        indexOnly:
+          type: boolean
+        specificType:
+          type: string
+        recordMethod:
+          type: string
+        originalName:
+          type: string
+        name:
+          type: string
+
+
+    ArchivalRecordUpdateDto:
+      properties:
+        typeOfRecord:
+          $ref: '#/components/schemas/ArchivalRecordTypeEnum'
+        archive:
+          type: string
+        fundName:
+          type: string
+        fundCode:
+          type: string
+        signature:
+          type: string
+        nad:
+          type: integer
+        inventoryNumber:
+          type: string
+        languages:
+          type: array
+          items:
+            type: string
+        numberOfScans:
+          type: integer
+        otherNote:
+          type: string
+        link:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: 'locations.yml#/components/schemas/LocationDto'
+        yearFrom:
+          type: integer
+        yearTo:
+          type: integer
+        content:
+          type: string
+        description:
+          type: string
+        scans:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanDto'
+        originatorName:
+          type: string
+        originatorType:
+          type: string
+        originatorNote:
+          type: string
+        yearBornFrom:
+          type: integer
+        yearBornTo:
+          type: integer
+        yearBornIndexFrom:
+          type: integer
+        yearBornIndexTo:
+          type: integer
+        yearMarriedFrom:
+          type: integer
+        yearMarriedTo:
+          type: integer
+        yearMarriedIndexFrom:
+          type: integer
+        yearMarriedIndexTo:
+          type: integer
+        yearDeceasedFrom:
+          type: integer
+        yearDeceasedTo:
+          type: integer
+        yearDeceasedIndexFrom:
+          type: integer
+        yearDeceasedIndexTo:
+          type: integer
+        registerNote:
+          type: string
+        yearTaken:
+          type: integer
+        judicialDistrict:
+          type: string
+        landRegistryNrs:
+          type: string
+        indexOnly:
+          type: boolean
+        specificType:
+          type: string
+        recordMethod:
+          type: string
+        originalName:
+          type: string
+        name:
+          type: string
+
+    ArchivalRecordScansDto:
+      properties:
+        scans:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanDto'
+
+    FundDto:
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+
+    ScanDto:
+      properties:
+        url:
+          type: string
+        preFetchUrl:
+          type: string
+
+    ArchivalRecordTypeEnum:
+      type: string
+      enum:
+        - MATRIKA
+        - SCITACI_OPERATOR
+        - INDIKACNA_SKICA
+        - POZEMKOVA_KNIHA
+        - LANOVY_REJSTRIK
+        - URBAR
+        - VEDUT
+        - MAPA
+        - REKTIFIKACNI_AKTA
+        - BERNI_RULA
+        - SOUPIS_PODDANYCH_DLE_VIRY
+        - VSE_BEZ_MATRIK
+
+    ArchivalRecordLanguageEnum:
+      type: string
+      enum:
+        - CZECH
+        - SLOVAK
+        - ENGLISH
+        - AUSTRIAN
+        - HUNGARIAN
+        - POLISH
+        - GERMAN
+
+
+    ArchivalRecordLocationEnum:
+      type: string
+      enum:
+        - KRAJ_VYSOCINA
+        - JIHOMORAVSKY_KRAJ
+        - ZLINSKY_KRAJ
+        - KRALOVEHRADSKY_KRAJ
+        - PARDUBICKY_KRAJ
+        - USTECKY_KRAJ
+        - LIBERECKY_KRAJ
+        - PLZENSKY_KRAJ
+        - KARLOVARSKY_KRAJ
+        - STREDOCESKY_KRAJ
+        - JIHOCESKY_KRAJ
+        - MORAVSKOSLEZSKY_KRAJ
+        - OLOMOUCKY_KRAJ
+        - HLAVNI_MESTO_PRAHA

@@ -1,0 +1,17 @@
+
+@import "../../styles/colorPalette.scss";
+
+
+.profileHeader{
+    color: $primary-color;
+}
+
+.topContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fieldsContainer {
+    display: flex;
+}

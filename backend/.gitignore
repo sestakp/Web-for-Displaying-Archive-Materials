@@ -1,0 +1,54 @@
+.env
+api/.env
+.idea/
+
+datasets/ruian/*
+datasets/**/datasets/*
+datasets/**/cache/*
+datasets/**/result/*
+datasets/modules/__pycache__/*
+datasets/modules/cache/*
+scrapers/**/result/*
+### Root .gitignore ###
+
+# Ignore help files
+HELP.md
+
+# Ignore target directories
+target/
+
+# Ignore Maven wrapper JAR
+!.mvn/wrapper/maven-wrapper.jar
+
+# Ignore build directories in source/main and source/test
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/gen
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/

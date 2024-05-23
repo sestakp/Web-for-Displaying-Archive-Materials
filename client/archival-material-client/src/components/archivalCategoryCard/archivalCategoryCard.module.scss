@@ -1,0 +1,36 @@
+
+@import "../../styles/colorPalette.scss";
+
+.card {
+    box-sizing: border-box; 
+    border: 3px solid transparent;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    
+    //transition: background-color 1s ease; // Add a smooth transition effect
+
+    &:hover {
+        background-color: #f0f0f0; // Change the background color on hover
+        border: 3px solid $primary-color;
+        h2 {
+            color: $primary-color; // Change the color of h2 on hover
+        }
+        /*img {
+        filter: hue-rotate(180deg); // Apply grayscale filter to the image on hover
+        }*/
+    }
+}
+
+.card .p-card-body{
+    padding: 10px
+}
+
+
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}

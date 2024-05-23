@@ -1,0 +1,65 @@
+@import 'colorPalette';
+
+
+body {
+  margin: 0;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: $gray;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+img {
+  -webkit-user-drag: none; /* For Safari */
+  user-drag: none; /* For other browsers */
+  user-select: none;
+  draggable: false;
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+a, a:active{
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover{
+
+  text-decoration: underline;
+  text-decoration-color: $secondary-color;
+}
+
+
+.p-slider .p-slider-handle{
+  border: 1px solid $primary-color;
+}
+
+.p-slider .p-slider-range{
+  border: 1px solid $primary-color;
+  background-color: $primary-color;
+}
+
+.highlight{
+  background-color: aqua;
+  outline: 1px solid red;
+}
+
+.rotateX{
+  transform: 'scaleX(-1)'
+}
+
+/*
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 7px;
+  }
+}
+*/

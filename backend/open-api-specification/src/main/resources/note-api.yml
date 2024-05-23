@@ -1,0 +1,147 @@
+openapi: 3.0.3
+info:
+  title: NOTE REST API
+  description: NOTE REST API
+  version: 0.0.1
+servers:
+  - url: 'https'
+
+paths:
+  /notes:
+    # Upsert
+    put:
+      tags:
+        - note-controller
+      summary: Upsert note
+      operationId: upsert
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoteRequestDto'
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteDetailDto'
+
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+  /notes/{id}:
+    delete:
+      tags:
+        - note-controller
+      summary: Delete note
+      operationId: deleteNote
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
+            format: int64
+            description: ID of note
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+  /notes/{archivalRecordId}:
+    get:
+      tags:
+        - note-controller
+      summary: Get notes for specific archival record
+      operationId: getNotesForArchivalRecord
+      parameters:
+        - in: path
+          required: true
+          name: archivalRecordId
+          schema:
+            type: integer
+            format: int64
+            description: ID of archivalRecord
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NoteDetailDto'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+
+
+
+components:
+  schemas:
+
+    NoteRequestDto:
+      properties:
+        scanUrl:
+          type: string
+        data:
+          type: string
+        text:
+          type: string
+        accessibility:
+          $ref: '#/components/schemas/AccessibilityEnum'
+        archivalRecordId:
+          type: integer
+          format: int64
+        scanNumber:
+          type: integer
+
+
+    NoteDetailDto:
+      properties:
+        id:
+          type: integer
+          format: int64
+        scanUrl:
+          type: string
+        data:
+          type: string
+        text:
+          type: string
+        archivalRecordId:
+          type: integer
+          format: int64
+        accessibility:
+          $ref: '#/components/schemas/AccessibilityEnum'
+        user:
+          $ref: 'user-api.yml#/components/schemas/UserDetailDto'
+        scanNumber:
+          type: integer
+
+    AccessibilityEnum:
+      type: string
+      enum:
+        - PRIVATE
+        - PUBLIC
+

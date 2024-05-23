@@ -1,0 +1,106 @@
+version: "2"
+
+services:
+
+  #mailhog:
+  #  image: mailhog/mailhog
+  #  ports:
+  #    - "${SMTP_PORT}:1025"  # SMTP port
+  #    - "8025:8025"  # Web UI port
+  #  networks:
+  #    - archival_material_sys
+
+  image-proxy:
+    build:
+      context: ./imageProxy
+    restart: always
+    container_name: image-proxy
+    ports:
+      - "8081:8081"
+
+  mariadb:
+    container_name: archival_material_db
+    image: mariadb:11.2.2
+    hostname: "mariadb"
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=${SQL_PASSWORD}
+      - MARIADB_DATABASE=${SQL_DB}
+    volumes:
+      - sql-data:/var/lib/mysql
+    ports:
+      - "${SQL_PORT}:3306"
+    networks:
+      - archival_material_sys
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.1
+    container_name: archival_records_elasticsearch
+    restart: always
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    volumes:
+    - es-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - archival_material_sys
+
+  scrapy-container:
+    container_name: archival_material_scraper
+    build:
+      context: ./scrapers
+    networks:
+      - archival_material_sys
+    depends_on:
+      - backend
+
+ 
+  backend:
+    container_name: archival_material_api
+    build: .
+    restart: always
+    environment:
+      - SQL_PASSWORD=${SQL_PASSWORD}
+      - SQL_USER=${SQL_USER}
+      - SQL_PORT=${SQL_PORT}
+      - SQL_DB=${SQL_DB}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - ENABLE_EMAIL=${ENABLE_EMAIL}
+      - BACKEND_URL=${BACKEND_URL}
+      - FRONTEND_URL=${FRONTEND_URL}
+    ports:
+      - "8080:8080"
+    networks:
+      - archival_material_sys
+    depends_on:
+      - mariadb
+      - elasticsearch
+  
+
+  
+  #client:
+  #  container_name: archival_material_client
+  #  build: client
+  #  restart: always
+  #  environment:
+  #    - VUE_APP_API_URL=http://backend:8080
+  #  ports:
+  #    - "80:80"
+  #  depends_on:
+  #    - backend
+  
+
+volumes:
+  sql-data:
+    driver: local
+  es-data:
+    driver: local
+
+networks:
+  archival_material_sys:  # Define the network
+    driver: bridge

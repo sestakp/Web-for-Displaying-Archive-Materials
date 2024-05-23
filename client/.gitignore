@@ -1,0 +1,5 @@
+data/datasets
+data/dataAnalysis/result
+archival-material-client/node_modules/*
+master-thesis-prototype/node_modules/*
+mza-proxy/node_modules/*

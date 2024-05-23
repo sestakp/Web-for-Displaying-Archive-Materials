@@ -1,0 +1,104 @@
+
+
+% Custom command similar to \nameref with custom text
+\newcommand{\customref}[2]{\hyperref[#1]{#2}}
+\newcommand{\newpara}{\\\\\noindent}
+
+%\usepackage[numberedsection,acronym]{glossaries}
+%\usepackage{longtable} % Add the longtable package
+\usepackage{adjustbox}
+
+%\usepackage[linesnumbered,ruled]{algorithm2e}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage{pdflscape}
+
+\usepackage{amssymb}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmus} % Algorithm
+\renewcommand{\algorithmicfunction}{\textbf{Funkce}} % function
+\renewcommand{\algorithmicif}{\textbf{Pokud}} % if
+\renewcommand{\algorithmicthen}{\textbf{Pak}} % then
+\renewcommand{\algorithmicelse}{\textbf{Jinak}} % else
+\renewcommand{\algorithmicfor}{\textbf{Pro}} % for
+\renewcommand{\algorithmicforall}{\textbf{Pro všechny}} % for all
+\renewcommand{\algorithmicwhile}{\textbf{Dokud}} % while
+\renewcommand{\algorithmicdo}{\textbf{Opakuj}} % do
+\renewcommand{\algorithmicrepeat}{\textbf{Opakuj}} % repeat
+\renewcommand{\algorithmicuntil}{\textbf{Dokud}} % until
+\renewcommand{\algorithmicloop}{\textbf{Cyklus}} % loop
+\renewcommand{\algorithmicreturn}{\textbf{Vrať}} % return
+\renewcommand{\algorithmicend}{\textbf{Konec}} % end
+\renewcommand{\algorithmicrequire}{\textbf{Vstup:}} % require
+\renewcommand{\algorithmicensure}{\textbf{Výstup:}} % ensure
+%\renewcommand{\algorithmiccomment}[1]{\hspace*{2em}// #1} % comment
+\makeatother
+
+
+% Define colors for syntax highlighting
+\definecolor{json_keyword}{RGB}{0,0,255}
+\definecolor{json_string}{RGB}{0,128,0}
+\definecolor{json_number}{RGB}{128,0,0}
+\definecolor{json_comment}{RGB}{0,128,255}
+
+
+% JSON language definition for listings
+\lstdefinelanguage{json}{
+  basicstyle=\small\ttfamily,
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  numbersep=8pt,
+  showstringspaces=false,
+  breaklines=true,
+  frame=lines,
+  backgroundcolor=\color{white},
+  keywordstyle=\color{json_keyword},
+  stringstyle=\color{json_string},
+  numberstyle=\color{json_number},
+  commentstyle=\color{json_comment},
+  morestring=[b]",
+  morecomment=[l]//,
+  morecomment=[s]{/*}{*/},
+  morekeywords={true, false, null},
+  literate=
+    {ě}{{\v{e}}}1
+    {š}{{\v{s}}}1
+    {ř}{{\v{r}}}1
+    {ž}{{\v{z}}}1
+    {ý}{{\'y}}1
+    {á}{{\'a}}1
+    {í}{{\'i}}1
+    {é}{{\'e}}1,
+}
+
+% Define a custom glossary style
+%\newglossarystyle{mylong}{%
+%    \setglossarystyle{long}% Use the long style as the base
+    
+%    \renewenvironment{theglossary}{\begin{longtable}{lp{0.8\linewidth}}}{\end{longtable}}%
+    
+    % Modify the appearance of the glossary elements
+%    \renewcommand*{\glossaryheader}{\textbf{Termín} & \textbf{Popis}\\ \\}% Bold column headers
+    
+%    \renewcommand*{\glsgroupheading}[1]{\textbf{\glsgetgrouptitle{##1}}\\}% Bold group headings
+    
+%    \renewcommand*{\glossentry}[2]{% Modify glossary entries
+%        \textbf{\glsentryname{##1}} & \glsentrydesc{##1}\glspostdescription\space ##2\tabularnewline
+%    }
+%}
+%\setglossarystyle{mylong}
+
+
+% Generate the glossary
+% \makeglossaries
