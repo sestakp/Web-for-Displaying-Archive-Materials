@@ -19,10 +19,26 @@ The scraping system does not work on Windows due to dependencies. The backend re
 
 ## Startup with Docker
 ### Prerequisities
-Docker and git should be installed
-
-### Step by step guide
-1. Clone repository - `git clone https://github.com/sestakp/Web-for-Displaying-Archive-Materials.git`
+-  Install docker
+-  Install git
+- If user isn't allowed to use docker:
+  - Verify linux group `docker` exist via command `getent group docker`
+  - If group doesn't exist, then create it via command `groupadd docker`
+  - Associate user with group via command `usermod -aG docker <username>`
+### Installation
+- Clone this repository via command `git clone https://github.com/sestakp/Web-for-Displaying-Archive-Materials.git`
+- Setup backend:
+  - Create environment variable files from template via command `cp ./backend/.env.example ./backend/.env`
+  - Update environment variables in `.env` file, **!!!change passwords!!!**, use random generators for generating strong passwords
+  - Please note, default ports can be updated in `docker-compose.yml`
+  - Build and start backend services in dettached mode via command `docker compose up -d`
+  - Get scraper container (backend-scrapy-container) ID via command `docker ps`
+  - Initialize scraping in dettached mode via command `docker exec -d <scrapy_container_id_from_previous_step> sh ./run_spiders.sh`
+- Setup client:
+  - Create environment variable files from template via command `cp ./client/archival-material-client/.env.production.example ./client/archival-material-client/.env.production`
+  - Update environment variables in `.env.production` file
+  - Please note, default ports can be updated in `docker-compose.yml`
+  - Build and start frontend application in dettached mode via command `docker compose up -d`
 
 ## Design
 The system has been split into several separate services and synchronizes two separate databases. The individual system models are described in more detail in the text of the thesis.
