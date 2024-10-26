@@ -32,8 +32,7 @@ The scraping system does not work on Windows due to dependencies. The backend re
   - Update environment variables in `.env` file, **!!!change passwords!!!**, use random generators for generating strong passwords
   - Please note, default ports can be updated in `docker-compose.yml`
   - Build and start backend services in dettached mode via command `docker compose up -d`
-  - Get scraper container (backend-scrapy-container) ID via command `docker ps`
-  - Initialize scraping in dettached mode via command `docker exec -d <scrapy_container_id_from_previous_step> sh ./run_spiders.sh`
+  - Initialize scraping in dettached mode via command `docker exec -d archival_material_scraper sh ./run_spiders.sh`
 - Setup client:
   - Create environment variable files from template via command `cp ./client/archival-material-client/.env.production.example ./client/archival-material-client/.env.production`
   - Update environment variables in `.env.production` file
