@@ -37,7 +37,7 @@ public class CorsConfig {
     public FilterRegistrationBean<CorsFilter> corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        corsConfiguration.setAllowedOriginPatterns(Arrays.asList("http://localhost:3000", "http://localhost:4200", "http://perun.fit.vutbr.cz:8083", "http://perun.fit.vutbr.cz:8082","http://perun.fit.vutbr.cz:8084", "http://perun.fit.vutbr.cz:8085" ,"http://localhost:8083", frontendUrl));
+        corsConfiguration.setAllowedOriginPatterns(Arrays.asList("http://localhost:3000", "http://localhost:4200", "http://perun.fit.vutbr.cz:8083", "http://perun.fit.vutbr.cz:8082","http://perun.fit.vutbr.cz:8084", "http://perun.fit.vutbr.cz:8085" ,"http://localhost:8083","http://radegast.fit.vutbr.cz:8083", "http://radegast.fit.vutbr.cz:8082","http://radegast.fit.vutbr.cz:8084", "http://radegast.fit.vutbr.cz:8085", frontendUrl));
         corsConfiguration.addAllowedMethod("GET");
         corsConfiguration.addAllowedMethod("POST");
         corsConfiguration.addAllowedMethod("PUT");
