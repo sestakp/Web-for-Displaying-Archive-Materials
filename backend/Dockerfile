@@ -41,6 +41,8 @@ COPY --from=build /app/api/target/*.jar api.jar
 
 # Expose the port your API application will run on
 EXPOSE 8080
+EXPOSE 8443
 
 # Command to run the App1 application
-CMD ["java", "-jar", "api.jar"]
+# CMD ["java", "-jar", "api.jar"]
+CMD ["sh", "-c", "java $JAVA_OPTS -Dserver.ssl.key-store=$SERVER_SSL_KEY_STORE -Dserver.ssl.key-store-password=$SERVER_SSL_KEY_STORE_PASSWORD -Dserver.ssl.key-store-type=$SERVER_SSL_KEY_STORE_TYPE -Dserver.ssl.key-alias=$SERVER_SSL_KEY_ALIAS -jar api.jar"]

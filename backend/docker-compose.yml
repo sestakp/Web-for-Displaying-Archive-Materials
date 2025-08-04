@@ -1,13 +1,13 @@
 
 services:
 
-  #mailhog:
-  #  image: mailhog/mailhog
-  #  ports:
-  #    - "${SMTP_PORT}:1025"  # SMTP port
-  #    - "8025:8025"  # Web UI port
-  #  networks:
-  #    - archival_material_sys
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "${SMTP_PORT}:1025"  # SMTP port
+      - "8025:8025"  # Web UI port
+    networks:
+      - archival_material_sys
 
   image-proxy:
     build:
@@ -38,10 +38,16 @@ services:
     restart: always
     environment:
       - discovery.type=single-node
-      - xpack.security.enabled=true
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certs/elasticsearch.key
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certs/elasticsearch.crt
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certs/elasticsearch.crt
+      
     volumes:
-    - es-data:/usr/share/elasticsearch/data
+      - es-data:/usr/share/elasticsearch/data
+      - ./certs:/usr/share/elasticsearch/config/certs:ro
     ports:
       - "9200:9200"
     networks:
@@ -74,16 +80,23 @@ services:
       - BACKEND_URL=${BACKEND_URL}
       - FRONTEND_URL=${FRONTEND_URL}
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - SERVER_SSL_KEY_STORE=/app/certs/springboot-keystore.p12
+      - SERVER_SSL_KEY_STORE_PASSWORD=changeit
+      - SERVER_SSL_KEY_STORE_TYPE=PKCS12
+      - SERVER_SSL_KEY_ALIAS=springboot
+      - SERVER_SSL_ENABLED=true
+      - JAVA_OPTS=-Djavax.net.ssl.trustStore=/app/certs/elasticsearch-truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit
     ports:
       - "8080:8080"
+      - "8443:8443"
     networks:
       - archival_material_sys
+    volumes:
+      - ./certs:/app/certs:ro
     depends_on:
       - mariadb
-      - elasticsearch
-  
+      - elasticsearch  
 
-  
   #client:
   #  container_name: archival_material_client
   #  build: client
@@ -100,6 +113,8 @@ volumes:
   sql-data:
     driver: local
   es-data:
+    driver: local
+  es-certs:
     driver: local
 
 networks:
