@@ -32,6 +32,9 @@ The scraping system does not work on Windows due to dependencies. The backend re
   - Update environment variables in `.env` file, **!!!change passwords!!!**, use random generators for generating strong passwords
   - Please note, default ports can be updated in `docker-compose.yml`
   - Create certificates with command `./backend/init-certs.sh`
+  - Change owner of certificates for Elasticsearch
+    - `chown 1000:1000 ./backend/certs/elasticsearch.crt`
+    - `chown 1000:1000 ./backend/certs/elasticsearch.key` 
   - Build and start backend services in dettached mode via command `docker compose up -d`
   - Initialize scraping in dettached mode via command `docker exec -d archival_material_scraper sh ./run_spiders.sh`
 - Setup client:
