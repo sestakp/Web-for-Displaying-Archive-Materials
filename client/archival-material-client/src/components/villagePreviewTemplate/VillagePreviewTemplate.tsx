@@ -1,7 +1,7 @@
-import LocationDto from "../../models/Location/LocationDto";
+import LocationListDto from "../../models/Location/LocationListDto";
 
 
-const VillagePreviewTemplate = (village : LocationDto) => {
+const VillagePreviewTemplate = (village : LocationListDto) => {
     // Custom preview template for the selected item
 
     let result = village.municipality;

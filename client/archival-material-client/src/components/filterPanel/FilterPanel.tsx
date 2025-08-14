@@ -17,6 +17,7 @@ import VillagePreviewTemplate from "../villagePreviewTemplate/VillagePreviewTemp
 import { Button } from "primereact/button";
 import LoadingStatusEnum from "../../models/LoadingStatusEnum";
 import styles from "./FilterPanel.module.scss"
+import LocationListDto from "../../models/Location/LocationListDto";
 
 
 const FilterPanel : React.FC = () => {
@@ -30,7 +31,7 @@ const FilterPanel : React.FC = () => {
     
     const [yearFromValue, setYearFromValue] = useState<number|undefined>(yearFrom);
     const [yearToValue, setYearToValue] = useState<number|undefined>(yearTo);
-    const [villageFilter, setVillageFilter] = useState(location ?? undefined)
+    const [villageFilter, setVillageFilter] = useState<LocationListDto|undefined>(location ?? undefined)
 
     
     const archiveSelector = useArchiveSelector()
